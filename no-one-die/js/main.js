@@ -328,7 +328,7 @@ var link, jsGame;
             }
         }, loadingCallBack: function (e, t, r) {
             var i = m.canvas.screen.getWidth(), s = m.canvas.screen.getHeight(), o = i, u = 5, a = parseInt(i - o >> 1),
-                f = s - u, e = e > t ? t : e, l = parseInt(e / t * 100) + "%";
+                f = s - u, e = e > t ? t : e, l = parseInt(e / t * 80) + "%";
             m.canvas.fillStyle(n.canvas.bgColor).fillRect(0, 0, i, s).fillStyle("#00FFFF").fillRect(a, f, parseInt(e / t * o), u).fillStyle("#FFF").fillText("loading " + r, 5, s - 10).fillText(l, i - m.canvas.measureText(l).width - 5, s - 10), i = s = o = u = a = f = l = null
         }, loadingEndCallBack: null, getAnchor: function (e, t, n, i, s) {
             var o = e, u = t;
@@ -911,12 +911,16 @@ var link, jsGame;
         }, pushImage: function (e, t) {
             if (n.image.inited) return this;
             var r;
-            for (var i = 0, s = e.length; i < s; i++) r = e[i], r && !n.image.initImgs[r.id] && (n.image.initImgs[r.id] = !0, n.image.imgObjs.push(e[i]));
+            for (var i = 0, s = e.length; i < s; i++) {
+                r = e[i], r && !n.image.initImgs[r.id] && (n.image.initImgs[r.id] = !0, n.image.imgObjs.push(e[i]));
+            }
             return this.loadingEndCallBack(t), r = null, this
         }, loadImage: function (e, t) {
-            if (n.system.gameFlow != r.system.gameFlowType.loadImage && e.length > 0) {
+            if (n.system.gameFlow !== r.system.gameFlowType.loadImage && e.length > 0) {
                 n.system.loadedImageToGameFlow = n.system.gameFlow, n.system.gameFlow = r.system.gameFlowType.loadImage, n.image.imgObjs = e, n.image.imgCount = n.image.imgObjs.length, n.image.countLoaded = 0;
-                for (var s = 0, o; o = n.image.imgObjs[s]; s++) n.image.imgs[o.id] ? n.image.countLoaded++ : i.setImage(o.id, o.src, o.benchId);
+                for (var s = 0, o; o = n.image.imgObjs[s]; s++) {
+                    n.image.imgs[o.id] ? n.image.countLoaded++ : i.setImage(o.id, o.src, o.benchId);
+                }
                 this.loadingEndCallBack(t)
             }
             return this
@@ -1500,7 +1504,13 @@ var link, jsGame;
                 var c = a(l.time);
                 e.canvas.fillStyle("#000").font("30px Arial").fillText(c, i - e.canvas.measureText(c).width - 20, 50), t = null
             }).menu(function () {
-                e.canvas.fillStyle("#FFF").fillScreen().drawImage("logo", i - 480 >> 1, u).drawImage("btns1", 0, 99, 480, 7, i - 480 >> 1, u + 140, 480, 7).drawImage("btns1", 0, 99, 480, 7, i - 480 >> 1, u + 555, 480, 7), e.buttonLayout.released("difficulty1") ? (l.moduleName = "我的成绩", hideAd(), c(2)) : e.buttonLayout.released("difficulty2") ? (l.moduleName = "噩梦模式", c(3)) : e.buttonLayout.released("difficulty3") ? (l.moduleName = "地狱模式", c(4)) : e.buttonLayout.released("difficulty4") ? (l.moduleName = "炼狱模式", c(5)) : e.buttonLayout.released("rank") && dp_Ranking()
+                // e.canvas.fillStyle("#FFF").fillScreen().drawImage("logo", i - 480 >> 1, u).drawImage("btns1", 0, 99, 480, 7, i - 480 >> 1, u + 140, 480, 7).drawImage("btns1", 0, 99, 480, 7, i - 480 >> 1, u + 555, 480, 7), e.buttonLayout.released("difficulty1") ? (l.moduleName = "我的成绩", hideAd(), c(2)) : e.buttonLayout.released("difficulty2") ? (l.moduleName = "噩梦模式", c(3)) : e.buttonLayout.released("difficulty3") ? (l.moduleName = "地狱模式", c(4)) : e.buttonLayout.released("difficulty4") ? (l.moduleName = "炼狱模式", c(5)) : e.buttonLayout.released("rank") && dp_Ranking()
+                e.canvas.fillStyle("#FFF").fillScreen()
+                    .drawImage("logo", i - 480 >> 1, u)
+                    .drawImage("btns1", 0, 99, 480, 7, i - 480 >> 1, u + 140, 480, 7)
+                    .drawImage("btns1", 0, 99, 480, 7, i - 480 >> 1, u + 555, 480, 7), e.buttonLayout.released("difficulty1") ? (l.moduleName = "我的成绩", hideAd(), c(2)) : e.buttonLayout.released("difficulty2") ? (l.moduleName = "噩梦模式", c(3)) : e.buttonLayout.released("difficulty3") ? (l.moduleName = "地狱模式", c(4)) : e.buttonLayout.released("difficulty4") ? (l.moduleName = "炼狱模式", c(5)) : e.buttonLayout.released("difficulty0") ? (l.moduleName = "简单模式", c(1)) : e.buttonLayout.released("rank") && dp_Ranking()
+
+
             }).zone(function () {
                 e.canvas.fillStyle("#90EE90").fillScreen().fillStyle("#FFF").drawString(l.moduleName, 0, u + 110, e.graphics.VCENTER, !1, null, null, "50px 微软雅黑").drawImage("btns1", 0, 106, 480, 7, i - 480 >> 1, u + 140, 480, 7).drawImage("btns1", 0, 106, 480, 7, i - 480 >> 1, u + 555, 480, 7).fillStyle("#000").drawString(a(l.time, "秒"), 0, u + 340, e.graphics.VCENTER, !1, null, null, "60px 微软雅黑").fillStyle("#000").drawString("最佳:" + a(l.bestTime, "秒"), 0, u + 400, e.graphics.VCENTER, !1, null, null, "30px 微软雅黑"), l.time > l.bestTime && e.canvas.fillStyle("#FF0").drawString("新纪录", 0, u + 240, e.graphics.VCENTER, !1, null, null, "50px 微软雅黑"), e.buttonLayout.released("return") ? f() : e.buttonLayout.released("restart") && dp_share2(l.time)
             }).events.mouseDown(function (e, t, n) {
@@ -1584,6 +1594,24 @@ var link, jsGame;
                     dex: 272,
                     dey: 0,
                     deColor: "#000"
+                }).create({
+                    id: "difficulty0",
+                    value: "简单模式",
+                    x: i - 272 >> 1,
+                    y: u + 160 + 120 + 300,
+                    width: 272,
+                    height: 80,
+                    font: "36px 微软雅黑",
+                    imageId: "btns1",
+                    sx: 0,
+                    sy: 0,
+                    color: "#FFF",
+                    hx: 272,
+                    hy: 0,
+                    hColor: "#FFF",
+                    dex: 272,
+                    dey: 0,
+                    deColor: "#000"
                 }).base().gameFlow.menu()
             };
             f();
@@ -1634,7 +1662,7 @@ var link, jsGame;
                     dp_share(l.time);
                     alert("强！你居然坚持了" + l.time / 1000 + "秒！")
                 }
-                ;e.buttonLayout.clear().create({
+                e.buttonLayout.clear().create({
                     id: "return",
                     value: "返回游戏主界面",
                     bgColor: "",
@@ -1664,9 +1692,7 @@ var link, jsGame;
 }), require.config({
     baseUrl: "js"
 }), require(["lib/link", "index"], function (e, t) {
-    e.init(window.innerWidth, window.innerHeight).pushImage([{
-        id: "logo", src: "images/ygdbns.jpg"
-    }, {
+    e.init(window.innerWidth, window.innerHeight).pushImage([{id: "logo", src: "images/ygdbns.jpg"}, {
         id: "btns1", src: "images/gdyx.png"
     }], function (e, t, n) {
     }).initAudio([{
